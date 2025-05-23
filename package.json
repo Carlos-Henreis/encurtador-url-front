@@ -7,7 +7,8 @@
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
-    "serve:ssr:encurtador-url-front": "node dist/encurtador-url-front/server/server.mjs"
+    "build:ssr": "ng build && ng run encurtador-url-front:server:production",
+    "serve:ssr:encurtador-url-front": "node dist/encurtador-url-front/server/main.js"
   },
   "private": true,
   "dependencies": {
