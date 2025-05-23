@@ -1,0 +1,21 @@
+<mat-card class="stats-card">
+    <mat-card-header>
+        <mat-card-title>Estatísticas do Encurtador</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+        <div *ngIf="!loading && stats" >
+            <p><strong>Original: </strong> <a href="{{ stats.urlOrigem }}" target="_blank" rel="noopener noreferrer">{{ stats.urlOrigem }}</a></p>
+            <p><strong>Encurtada: </strong> <a href="{{ stats.urlEncurtada }}" target="_blank" rel="noopener noreferrer">{{ stats.urlEncurtada }}</a></p>
+            <p><strong>Total de acessos:</strong> {{ stats.totalAcessos }}</p>
+            <p><strong>Criado em:</strong> {{ stats.criadoEm | date:'short' }}</p>
+            <p><strong>Último acesso:</strong> {{ stats.ultimoAcessoEm | date:'short' }}</p>
+        </div>
+        <mat-spinner *ngIf="loading"></mat-spinner>
+        <p *ngIf="error">{{ error }}</p>
+    </mat-card-content>
+    <mat-card-actions>
+        <button mat-stroked-button color="primary" (click)="voltar()">
+            <mat-icon>arrow_back</mat-icon> Voltar
+        </button>
+    </mat-card-actions>
+</mat-card>

@@ -1,0 +1,23 @@
+.stats-card {
+  max-width: 600px;
+  margin: 2rem auto;
+  padding: 1.5rem;
+
+  h2 {
+    margin-bottom: 1rem;
+  }
+
+  p {
+    margin: 0.5rem 0;
+  }
+
+  .actions {
+    margin-top: 1.5rem;
+    display: flex;
+    justify-content: flex-end;
+  }
+
+  mat-spinner {
+    place-self: center;
+  }
+}

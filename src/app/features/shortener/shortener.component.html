@@ -1,0 +1,51 @@
+<div class="shortener-box">
+  <mat-form-field appearance="outline" class="url-field">
+    <mat-label>Sua URL</mat-label>
+    <input matInput [formControl]="urlControl" placeholder="https://exemplo.com">
+  </mat-form-field>
+
+  <button mat-raised-button color="primary" (click)="shortenUrl()">Encurtar</button>
+</div>
+
+<div *ngIf="result" class="result-box mat-elevation-z2">
+  <a href="{{ result.urlEncurtada }}" target="_blank" rel="noopener noreferrer">
+    {{ result.urlEncurtada }}
+    </a>
+
+
+  <div class="actions">
+    <button mat-stroked-button (click)="copyToClipboard(result.urlEncurtada)">
+      <mat-icon>content_copy</mat-icon> Copiar
+    </button>
+    <button mat-stroked-button color="accent" (click)="showQrCode()">
+        <mat-icon>qr_code</mat-icon> QR Code
+    </button>
+    <button mat-stroked-button color="warn" [routerLink]="['/stats', result.urlEncurtada.split('/').pop()]">
+      <mat-icon>bar_chart</mat-icon> Estatísticas
+    </button>
+  </div>
+</div>
+
+
+<section class="features-cards">
+  <mat-card>
+    <mat-icon>link</mat-icon>
+    <h3>Encurtamento rápido</h3>
+    <p>Converta URLs longas em links curtos e compartilháveis.</p>
+  </mat-card>
+
+  <mat-card>
+    <mat-icon>insights</mat-icon>
+    <h3>Estatísticas completas</h3>
+    <p>Acompanhe acessos, criação e último clique.</p>
+    <button mat-stroked-button color="primary" (click)="openStatisticsDialog()">
+        Ver estatísticas
+    </button>
+  </mat-card>
+
+  <mat-card>
+    <mat-icon>qr_code</mat-icon>
+    <h3>QR Code instantâneo</h3>
+    <p>Compartilhe links de forma física com QR Codes.</p>
+  </mat-card>
+</section>

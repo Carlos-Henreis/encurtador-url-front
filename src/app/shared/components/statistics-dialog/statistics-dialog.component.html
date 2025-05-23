@@ -1,0 +1,18 @@
+<h2 mat-dialog-title>Consultar estatísticas</h2>
+
+<mat-dialog-content>
+  <mat-form-field appearance="fill" style="width: 100%;">
+    <mat-label>Informe o código do link</mat-label>
+    <input matInput [formControl]="codigoControl" placeholder="Ex: abc123" />
+    <mat-error *ngIf="codigoControl.invalid && codigoControl.touched">
+      Código obrigatório
+    </mat-error>
+  </mat-form-field>
+</mat-dialog-content>
+
+<mat-dialog-actions align="end">
+  <button mat-button (click)="cancelar()">Cancelar</button>
+  <button mat-flat-button color="primary" (click)="confirmar()" [disabled]="codigoControl.invalid">
+    Ver estatísticas
+  </button>
+</mat-dialog-actions>
