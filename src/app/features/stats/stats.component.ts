@@ -6,6 +6,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 import { ShortenerService } from '../../shared/services/shortener.service';
+import { Title, Meta } from '@angular/platform-browser';
 
 
 @Component({
@@ -26,7 +27,11 @@ export class StatsComponent implements OnInit {
   private route = inject(ActivatedRoute);
   private router = inject(Router);
 
-  constructor(private shortenerService: ShortenerService) {}
+  constructor(
+    private shortenerService: ShortenerService,
+    private title: Title,
+    private meta: Meta
+  ) {}
 
   stats: any;
   loading = true;
@@ -48,6 +53,22 @@ export class StatsComponent implements OnInit {
         this.loading = false;
       }
     });
+
+    this.title.setTitle(`Estatísticas do link ${id} - chr.app.br`);
+    this.meta.addTags([
+      { name: 'description', content: `Veja os acessos e QR Code do link curto ${id}.` },
+      { name: 'keywords', content: `link ${id}, estatísticas de link, qr code, encurtador` },
+      { property: 'og:title', content: `Estatísticas de ${id} | chr.app.br` },
+      { property: 'og:description', content: `Link ${id} encurtado com relatórios de acesso.` },
+      { property: 'og:url', content: `https://encurtadorurl.cahenre.com.br/stats/${id}` },
+      { property: 'og:image', content: `https://encurtadorurl.cahenre.com.br/screenshot.png` },
+      { property: 'og:type', content: 'website' },
+      { property: 'twitter:title', content: `Estatísticas de ${id} | chr.app.br` },
+      { property: 'twitter:description', content: `Link ${id} encurtado com relatórios de acesso.` },
+      { property: 'twitter:image', content: `https://encurtadorurl.cahenre.com.br/screenshot.png` },
+      { property: 'twitter:url', content: `https://encurtadorurl.cahenre.com.br/stats/${id}` },
+      { name: 'twitter:card', content: 'summary' }
+    ]);
   }
 
   voltar(): void {
