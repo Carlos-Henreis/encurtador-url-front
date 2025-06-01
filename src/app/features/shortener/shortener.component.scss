@@ -38,6 +38,13 @@
   }
 }
 
+.loading-spinner {
+  padding: 2rem 1rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 .result-box {
   margin: 2rem auto;
   max-width: 70%;

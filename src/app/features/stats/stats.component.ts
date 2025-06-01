@@ -7,6 +7,8 @@ import { MatButtonModule } from '@angular/material/button';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 import { ShortenerService } from '../../shared/services/shortener.service';
 import { Title, Meta } from '@angular/platform-browser';
+import { ReCaptchaConfigService } from '../../shared/services/recaptcha-config.service';
+import { ErrorComponent } from '../../shared/components/error/error.component';
 
 
 @Component({
@@ -18,7 +20,8 @@ import { Title, Meta } from '@angular/platform-browser';
     MatCardModule,
     MatIconModule,
     MatButtonModule,
-    MatProgressSpinnerModule
+    MatProgressSpinnerModule,
+    ErrorComponent
   ],
   templateUrl: './stats.component.html',
   styleUrl: './stats.component.scss'
@@ -30,26 +33,36 @@ export class StatsComponent implements OnInit {
   constructor(
     private shortenerService: ShortenerService,
     private title: Title,
-    private meta: Meta
+    private meta: Meta,
+    private recaptcha: ReCaptchaConfigService
   ) {}
 
   stats: any;
   loading = true;
-  error = '';
+  error = false;
 
-  ngOnInit(): void {
+  async ngOnInit() {
     const id = this.route.snapshot.paramMap.get('id');
+    let token = '';
     if (!id) {
       this.router.navigateByUrl('/');
       return;
     }
-    this.shortenerService.getStatistics(id).subscribe({
+    try {
+      await this.recaptcha.init('recaptcha-container'); // invisível
+      token = await this.recaptcha.execute();
+    } catch (error) {
+      this.error = true;
+      this.loading = false;
+      return;
+    }
+    this.shortenerService.getStatistics(id, token).subscribe({
       next: (res) => {
-        this.stats = res;
+        this.stats = res.body!;
         this.loading = false;
       },
       error: (err) => {
-        this.error = 'Erro ao carregar as estatísticas.';
+        this.error = true;
         this.loading = false;
       }
     });

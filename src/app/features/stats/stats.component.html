@@ -3,15 +3,15 @@
         <mat-card-title>Estatísticas do Encurtador</mat-card-title>
     </mat-card-header>
     <mat-card-content>
-        <div *ngIf="!loading && stats" >
+        <div *ngIf="!loading && stats && !error" >
             <p><strong>Original: </strong> <a href="{{ stats.urlOrigem }}" target="_blank" rel="noopener noreferrer">{{ stats.urlOrigem }}</a></p>
             <p><strong>Encurtada: </strong> <a href="{{ stats.urlEncurtada }}" target="_blank" rel="noopener noreferrer">{{ stats.urlEncurtada }}</a></p>
             <p><strong>Total de acessos:</strong> {{ stats.totalAcessos }}</p>
-            <p><strong>Criado em:</strong> {{ stats.criadoEm | date:'short' }}</p>
-            <p><strong>Último acesso:</strong> {{ stats.ultimoAcessoEm | date:'short' }}</p>
+            <p><strong>Criado em:</strong> {{ stats.criadoEm | date : 'dd/MM/yyyy HH:mm' }}</p>
+            <p><strong>Último acesso:</strong> {{ stats.ultimoAcessoEm | date : 'dd/MM/yyyy HH:mm' }}</p>
         </div>
         <mat-spinner *ngIf="loading"></mat-spinner>
-        <p *ngIf="error">{{ error }}</p>
+        <app-error *ngIf="error"></app-error>
     </mat-card-content>
     <mat-card-actions>
         <button mat-stroked-button color="primary" (click)="voltar()">
@@ -19,3 +19,4 @@
         </button>
     </mat-card-actions>
 </mat-card>
+<div id="recaptcha-container"></div>

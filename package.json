@@ -3,11 +3,11 @@
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
-    "start": "ng serve",
+    "start": "node mynode.js &&  ng serve",
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
-    "build:ssr": "ng build && ng run encurtador-url-front:server:production",
+    "build:ssr": "node mynode.js && ng build && ng run encurtador-url-front:server:production",
     "serve:ssr:encurtador-url-front": "node dist/encurtador-url-front/server/main.js"
   },
   "private": true,
@@ -23,7 +23,9 @@
     "@angular/platform-server": "^19.2.13",
     "@angular/router": "^19.2.13",
     "@angular/ssr": "^19.2.13",
+    "dotenv": "^16.5.0",
     "express": "^4.18.2",
+    "ngx-captcha": "^13.0.0",
     "rxjs": "~7.8.0",
     "tslib": "^2.3.0",
     "zone.js": "~0.15.0"
@@ -33,6 +35,7 @@
     "@angular/cli": "^19.2.3",
     "@angular/compiler-cli": "^19.2.13",
     "@types/express": "^4.17.17",
+    "@types/grecaptcha": "^3.0.9",
     "@types/jasmine": "~5.1.0",
     "@types/node": "^18.18.0",
     "jasmine-core": "~5.6.0",

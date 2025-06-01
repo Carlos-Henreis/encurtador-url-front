@@ -20,6 +20,7 @@ export class QrCodeDialogComponent {
     private dialogRef: MatDialogRef<QrCodeDialogComponent>,
     private clipboard: Clipboard
   ) {
+    console.log('QrCodeDialogComponent initialized with data:', data);
     this.imageUrl = URL.createObjectURL(data.blob);
   }
 

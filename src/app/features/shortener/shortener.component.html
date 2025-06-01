@@ -1,10 +1,17 @@
-<div class="shortener-box">
+<div class="shortener-box" *ngIf="!loadingPage">
   <mat-form-field appearance="outline" class="url-field">
     <mat-label>Sua URL</mat-label>
     <input matInput [formControl]="urlControl" placeholder="https://exemplo.com">
   </mat-form-field>
 
-  <button mat-raised-button color="primary" (click)="shortenUrl()">Encurtar</button>
+  <button *ngIf="!loadingResult" mat-raised-button color="primary" (click)="shortenUrl()">Encurtar URL</button>
+  <button *ngIf="loadingResult" mat-raised-button color="primary" disabled>
+    <mat-spinner diameter="20"></mat-spinner>
+  </button>
+</div>
+
+<div class="loading-spinner" *ngIf="loadingPage">
+  <mat-spinner diameter="50"></mat-spinner>
 </div>
 
 <div *ngIf="result" class="result-box mat-elevation-z2">
@@ -17,8 +24,11 @@
     <button mat-stroked-button (click)="copyToClipboard(result.urlEncurtada)">
       <mat-icon>content_copy</mat-icon> Copiar
     </button>
-    <button mat-stroked-button color="accent" (click)="showQrCode()">
+    <button *ngIf="!loadingQrCode" mat-stroked-button color="accent" (click)="showQrCode()">
         <mat-icon>qr_code</mat-icon> QR Code
+    </button>
+    <button *ngIf="loadingQrCode" mat-stroked-button color="accent" disabled>
+      <mat-spinner diameter="20"></mat-spinner>
     </button>
     <button mat-stroked-button color="warn" [routerLink]="['/stats', result.urlEncurtada.split('/').pop()]">
       <mat-icon>bar_chart</mat-icon> Estatísticas
@@ -49,3 +59,4 @@
     <p>Compartilhe links de forma física com QR Codes.</p>
   </mat-card>
 </section>
+<div id="recaptcha-container"></div>

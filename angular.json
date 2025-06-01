@@ -113,7 +113,9 @@
             "styles": [
               "src/styles.scss"
             ],
-            "scripts": []
+            "scripts": [
+              "https://www.google.com/recaptcha/api.js"
+            ]
           }
         }
       }
