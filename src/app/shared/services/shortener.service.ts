@@ -12,7 +12,7 @@ interface ShortenResponse {
 
 @Injectable({ providedIn: 'root' })
 export class ShortenerService {
-  private readonly api = 'http://localhost:8000';
+  private readonly api = 'https://chr.app.br';
   private http = inject(HttpClient);
 
 
