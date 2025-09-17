@@ -9,5 +9,9 @@ export const routes: Routes = [
     path: 'stats/:id',
     loadComponent: () => import('./features/stats/stats.component').then(m => m.StatsComponent)
   },
+  {
+    path: 'redirect/:id',
+    loadComponent: () => import('./features/redirect/redirect.component').then(m => m.RedirectComponent)
+  },
   { path: '**', redirectTo: '/' }
 ];

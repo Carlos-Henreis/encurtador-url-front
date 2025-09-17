@@ -1,0 +1,10 @@
+<div *ngIf="showAd; else redirectingTemplate" class="ad-container">
+  <!-- Anúncio aqui -->
+  <p>Anúncio: aguarde {{ counter }} segundo{{ counter === 1 ? '' : 's' }}...</p>
+  <div class="progress-bar">
+    <div class="progress" [style.width.%]="(counter/waitTime)*100"></div>
+  </div>
+</div>
+<ng-template #redirectingTemplate>
+  <p>Redirecionando...</p>
+</ng-template>

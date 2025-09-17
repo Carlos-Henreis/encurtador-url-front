@@ -1,7 +1,7 @@
 <h2 mat-dialog-title>QR Code</h2>
 
 <div mat-dialog-content class="content">
-  <img [src]="imageUrl" alt="QR Code" />
+  <qrcode #qrCodeElement elementType="canvas" [qrdata]="data.url" (qrCodeURL)="onChangeURL($event)"></qrcode>
 </div>
 
 <div mat-dialog-actions align="start" class="actions">
@@ -11,3 +11,5 @@
   <span class="spacer"></span>
   <button mat-button color="primary" (click)="close()">Fechar</button>
 </div>
+
+<a style="display: none;" id="download-link" [href]="qrCodeUrl" download="qrcode.png" *ngIf="qrCodeUrl">Baixar QR Code</a>

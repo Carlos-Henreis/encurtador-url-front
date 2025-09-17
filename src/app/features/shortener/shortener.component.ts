@@ -139,14 +139,6 @@ export class ShortenerComponent implements AfterViewInit {
 
   async showQrCode() {
     this.loadingQrCode = true;
-    let token: string;
-    try {
-      token = await this.recaptcha.execute();
-    } catch (error) {
-      this.snackBar.open('Erro ao obter token do reCAPTCHA. Tente novamente.', 'Fechar', { duration: 3000 });
-      this.loadingResult = false;
-      return;
-    }
 
     const url = this.result?.urlEncurtada;
     if (!url) {
@@ -155,35 +147,12 @@ export class ShortenerComponent implements AfterViewInit {
       return;
     }
     try {
-      const path = url.split('/').pop();
-      if (!path) return;
-
-      this.shortenerService.getQrCode(path, token).subscribe({
-        next: (res) => {
-          const blob = new Blob([res.body!], { type: 'image/png' });
-          this.loadingQrCode = false;
-          const dialogRef = this.dialog.open(QrCodeDialogComponent, {
-            data: { blob, url },
-            width: '400px',
-            height: '400px'
-          });
-
-          this.loadingQrCode = false;
-        },
-        error: (err) => {
-          if (err.status === 404) {
-            this.snackBar.open('QR Code não encontrado para esta URL.', 'Fechar', { duration: 3000 });
-          } else if (err.status === 429) {
-            this.snackBar.open('Limite de requisições excedido. Tente novamente mais tarde.', 'Fechar', { duration: 3000 });
-          } else if (err.status === 403) {    
-            this.snackBar.open('Somente humanos podem encurtar URLs. Por favor, complete o reCAPTCHA.', 'Fechar', { duration: 3000 });
-          } else {
-            this.snackBar.open('Erro ao gerar QR Code.', 'Fechar', { duration: 3000 });
-          }
-          console.error('Erro ao obter QR Code:', err);
-          this.loadingQrCode = false;
-        }
-      });
+        this.loadingQrCode = false;
+        const dialogRef = this.dialog.open(QrCodeDialogComponent, {
+          data: { url },
+          width: '400px',
+          height: '400px'
+        });
     } catch (err) {
       console.error('Erro ao gerar QR Code:', err);
       this.snackBar.open('Erro ao gerar QR Code.', 'Fechar', { duration: 3000 });

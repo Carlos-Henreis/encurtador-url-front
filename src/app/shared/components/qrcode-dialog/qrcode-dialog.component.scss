@@ -1,17 +1,10 @@
 .content {
   display: flex;
   justify-content: center;
+  align-items: center;
   padding: 1rem;
-
-  img {
-    max-width: 100%;
-    height: auto;
-    border: 1px solid #ccc;
-    padding: 0.5rem;
-    background-color: white;
-    border-radius: 8px;
-  }
 }
+
 
 .actions {
   display: flex;

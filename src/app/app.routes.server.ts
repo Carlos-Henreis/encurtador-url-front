@@ -10,7 +10,11 @@ export const serverRoutes: ServerRoute[] = [
     renderMode: RenderMode.Server
   },
   {
-    path: '**', // 👈 isso resolve o erro
+    path: 'redirect/:id',
+    renderMode: RenderMode.Server
+  },
+  {
+    path: '**',
     renderMode: RenderMode.Server
   }
 ];

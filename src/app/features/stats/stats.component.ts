@@ -9,6 +9,8 @@ import { ShortenerService } from '../../shared/services/shortener.service';
 import { Title, Meta } from '@angular/platform-browser';
 import { ReCaptchaConfigService } from '../../shared/services/recaptcha-config.service';
 import { ErrorComponent } from '../../shared/components/error/error.component';
+import { MatDialog } from '@angular/material/dialog';
+import { QrCodeDialogComponent } from '../../shared/components/qrcode-dialog/qrcode-dialog.component';
 
 
 @Component({
@@ -34,7 +36,8 @@ export class StatsComponent implements OnInit {
     private shortenerService: ShortenerService,
     private title: Title,
     private meta: Meta,
-    private recaptcha: ReCaptchaConfigService
+    private recaptcha: ReCaptchaConfigService,
+    private dialog: MatDialog
   ) {}
 
   stats: any;
@@ -87,4 +90,21 @@ export class StatsComponent implements OnInit {
   voltar(): void {
     this.router.navigateByUrl('/');
   }
+
+  async showQrCode() {
+  
+      const url = this.stats?.urlEncurtada;
+      if (!url) {
+        return;
+      }
+      try {
+          const dialogRef = this.dialog.open(QrCodeDialogComponent, {
+            data: { url },
+            width: '400px',
+            height: '400px'
+          });
+      } catch (err) {
+        console.error('Erro ao abrir diálogo de QR Code:', err);
+      }
+    }
 }
